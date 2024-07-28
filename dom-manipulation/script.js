@@ -37,6 +37,7 @@ async function syncQuotes() {
   const serverQuotes = await fetchQuotesFromServer();
   if (serverQuotes.length) {
     handleSync(serverQuotes);
+    notifyUser('Quotes synced with server!');
   }
 }
 
