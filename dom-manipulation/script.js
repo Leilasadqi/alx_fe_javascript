@@ -32,14 +32,12 @@ async function postQuotesToServer(quotes) {
   }
 }
 
-// Periodically sync data with the server
-function startPeriodicSync() {
-  setInterval(async () => {
-    const serverQuotes = await fetchQuotesFromServer();
-    if (serverQuotes.length) {
-      handleSync(serverQuotes);
-    }
-  }, 60000); // Sync every 60 seconds
+// Function to synchronize quotes with the server
+async function syncQuotes() {
+  const serverQuotes = await fetchQuotesFromServer();
+  if (serverQuotes.length) {
+    handleSync(serverQuotes);
+  }
 }
 
 // Handle syncing data and resolve conflicts
