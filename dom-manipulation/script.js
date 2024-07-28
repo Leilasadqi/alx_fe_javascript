@@ -58,7 +58,7 @@ function showAllQuotes() {
 // Function to display a random quote
 function showRandomQuote() {
   if (quotes.length === 0) {
-    document.getElementById('quoteDisplay').innerHTML = '<p>No quotes available.</p>';
+    document.getElementById('quoteDisplay').textContent = 'No quotes available.';
     return;
   }
 
