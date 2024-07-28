@@ -1,4 +1,3 @@
-
 // Array of quote objects
 let quotes = [];
 
@@ -27,6 +26,13 @@ function loadSelectedFilter() {
 // Save last selected filter to local storage
 function saveSelectedFilter(filter) {
   localStorage.setItem('selectedFilter', filter);
+}
+
+// Populate the category dropdown with unique categories
+function populateCategories() {
+  const categoryFilter = document.getElementById('categoryFilter');
+  const categories = [...new Set(quotes.map(q => q.category))];
+  categoryFilter.innerHTML = '<option value="all">All Categories</option>' + categories.map(c => `<option value="${c}">${c}</option>`).join('');
 }
 
 // Function to display quotes based on filter
@@ -70,7 +76,7 @@ function addQuote() {
   if (newQuoteText && newQuoteCategory) {
     quotes.push({ text: newQuoteText, category: newQuoteCategory });
     saveQuotes();
-    updateCategoryFilter();
+    populateCategories();
     document.getElementById('newQuoteText').value = '';
     document.getElementById('newQuoteCategory').value = '';
     alert('New quote added successfully!');
@@ -97,13 +103,6 @@ function createAddQuoteForm() {
   document.getElementById('importFile').addEventListener('change', importFromJsonFile);
 }
 
-// Function to update the category filter options
-function updateCategoryFilter() {
-  const categoryFilter = document.getElementById('categoryFilter');
-  const categories = [...new Set(quotes.map(q => q.category))];
-  categoryFilter.innerHTML = '<option value="all">All Categories</option>' + categories.map(c => `<option value="${c}">${c}</option>`).join('');
-}
-
 // Function to export quotes to a JSON file
 function exportToJson() {
   const json = JSON.stringify(quotes, null, 2);
@@ -125,7 +124,7 @@ function importFromJsonFile(event) {
     const importedQuotes = JSON.parse(event.target.result);
     quotes = [...importedQuotes];
     saveQuotes();
-    updateCategoryFilter();
+    populateCategories();
     showRandomQuote(); // Show a new random quote
     alert('Quotes imported successfully!');
   };
@@ -135,7 +134,7 @@ function importFromJsonFile(event) {
 // Initialize the application
 function initializeApp() {
   loadQuotes();
-  updateCategoryFilter();
+  populateCategories();
   loadSelectedFilter();
   createAddQuoteForm();
   filterQuotes(); // Display quotes based on the current filter
