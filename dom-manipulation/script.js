@@ -24,7 +24,20 @@ function addQuote() {
   }
 }
 
+function createAddQuoteForm() {
+  const formContainer = document.createElement('div');
+  formContainer.innerHTML = `
+    <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
+    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
+    <button id="addQuote">Add Quote</button>
+  `;
+  document.body.appendChild(formContainer);
+  
+  document.getElementById('addQuote').addEventListener('click', addQuote);
+}
+
 document.getElementById('newQuote').addEventListener('click', showRandomQuote);
-document.getElementById('addQuote').addEventListener('click', addQuote);
+
+createAddQuoteForm();
 
 showRandomQuote();
